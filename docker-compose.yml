@@ -1,0 +1,18 @@
+version: '1'
+services:
+  server-side:
+    build:
+      context: ./server-side
+    ports:
+      - "8000:8000"
+    env_file: ./server-side/.env # TODO - uncomment this to auto-load your .env file!
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+  client-side:
+    build:
+      context: ./client-side/
+    depends_on:
+      - server-side
+    ports:
+      - "3000:3000"
